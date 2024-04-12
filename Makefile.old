@@ -1,0 +1,26 @@
+PROJECT = simple
+MCU = attiny13a
+F_CPU = 1000000
+PROGRAMMER = -c linuxspi -P usb
+CC = avr-gcc
+OBJCOPY = avr-objcopy
+CFLAGS = -mmcu=$(MCU) -DF_CPU=$(F_CPU) -Wall -Os -g 
+
+$(PROJECT).hex: $(PROJECT).elf
+	$(OBJCOPY) -O ihex -R .eeprom $(PROJECT).elf $(PROJECT).hex
+
+$(PROJECT).elf: $(PROJECT).o
+	$(CC) $(CFLAGS) -o $(PROJECT).elf $(PROJECT).o
+
+$(PROJECT).o: main.c
+	$(CC) $(CFLAGS) -c main.c -o $(PROJECT).o
+
+flash: $(PROJECT).hex
+	avrdude $(PROGRAMMER) -p $(MCU) -U flash:w:$(PROJECT).hex:i
+
+clean:
+	rm -f $(PROJECT).o $(PROJECT).elf $(PROJECT).hex
+
+.PHONY: clean flash
+
+
