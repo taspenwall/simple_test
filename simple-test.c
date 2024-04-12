@@ -48,40 +48,33 @@ int main(int argc, char *argv[]){
 	avr_gdb_init(avr);  
 
     
-    printf("connect GDB enter char to contine and set a break point to enter the trigger");
-    char input = getchar();
+    printf("connect GDB and press enter\n");
+    printf("to break and trigger interrupt... step one instruction");
     char dummy = getchar(); //  when I hit enter I seem to read that as a char
 
     
-    //while ((state != cpu_Done) && (state != cpu_Crashed) && (state != cpu_Stopped)) 
-    while ((state != cpu_Done) && (state != cpu_Crashed)){
-       
-        state = avr_run(avr); //this sould run until the breakpoint
+    
+    while ((state != cpu_Crashed) && (state != cpu_Done) && (state != cpu_StepDone))
+     {  
+        state = avr_run(avr); //this will run 15 instructions so that gdb will connect and load, then I can set a BP 
     }
-    /*
-    printf("enter char to fire trigger\n");
-    input = getchar();
-    dummy = getchar();
+    
+    
 
-    printf("setting trigger");
+    printf("setting interrupt!!! press enter to go back to gdb\n");
     
     trigger_init(avr, &t);
+    trigger_press(&t);
     
-    avr_raise_irq(t.irq + IRQ_TRIGGER_IN, 0);
-
-    printf("enter char to drop back into running mode");
-    input = getchar();
     dummy = getchar();
 
-    while ((state != cpu_Done) && (state != cpu_Crashed)){ //run to end of program
-        state = avr_run(avr);
+    printf("back in gdb quit gdb to end program\n");
+    while((state != cpu_Done) && (state != cpu_Crashed)){
+        state=avr_run(avr);
     }
-    */
-    printf("end of program"); 
-    input += dummy; //get rig of the unused var message
-    
 
-    
+
+    dummy += 1;
     return 0;
 
 
