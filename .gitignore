@@ -1,0 +1,2 @@
+obj-x86_64-linux-gnu/*
+*.hex *.a *.axf simple-test *.vcd .*.swo .*.swp .*.swm .*.swn   
