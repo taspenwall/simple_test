@@ -1,4 +1,10 @@
-// simpe proiogram to test using interupt in gdb
+/* 
+    attiny13_simple_test.c
+
+    This is a project to use and emualte an avr using avrsim 
+    avrsim is by Michel Pollet <buserror@gmail.com> and copyrighted 2008, 2009
+please see https://github.com/buserror/simavr for license and reference
+*/
 #include <avr/interrupt.h>
 #include  <avr/io.h>
 #include <util/delay.h>

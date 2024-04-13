@@ -1,5 +1,9 @@
-// this is the x86 program for simple-test
+/* simple_test.c 
 
+ This is a project to use and emualte an avr using avrsim 
+    avrsim is by Michel Pollet <buserror@gmail.com> and copyrighted 2008, 2009
+please see https://github.com/buserror/simavr for license and reference
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <libgen.h>
@@ -56,8 +60,7 @@ int main(int argc, char *argv[]){
     
     while ((state != cpu_Crashed) && (state != cpu_Done) && (state != cpu_StepDone))
      {  
-        state = avr_run(avr); //this will run 15 instructions so that gdb will connect and load, then I can set a BP 
-    }
+        state = avr_run(avr); 
     
     
 
