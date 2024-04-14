@@ -53,7 +53,8 @@ int main(int argc, char *argv[]){
 
     
     printf("connect GDB and press enter\n");
-    printf("to break and trigger interrupt... step one instruction");
+    
+    printf("tip: to break and trigger interrupt... step one instruction");
     char dummy = getchar(); //  when I hit enter I seem to read that as a char
 
     
@@ -62,16 +63,21 @@ int main(int argc, char *argv[]){
      {  
         state = avr_run(avr); 
     
-    
+     }
 
     printf("setting interrupt!!! press enter to go back to gdb\n");
     
     trigger_init(avr, &t);
-    trigger_press(&t);
+    //should I be calling avr_connect_irq() here in stead of trigger.c??
+    
+   trigger_press(&t);
+    
+
     
     dummy = getchar();
 
     printf("back in gdb quit gdb to end program\n");
+    
     while((state != cpu_Done) && (state != cpu_Crashed)){
         state=avr_run(avr);
     }
